@@ -5,22 +5,22 @@ import tocman.classes.PhoneNumbers;
 
 import java.util.Scanner;
 
-public class Main {
+public class ClassMain {
     public static PhoneNumbers phoneNumbers;
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         phoneNumbers = new PhoneNumbers(10);
 
-        phoneNumbers.add(new PhoneNumber("+380685397284", PhoneNumber.Telephone.Unknown), 1);
-        phoneNumbers.add(new PhoneNumber("+380996529404", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Mobile), 2);
-        phoneNumbers.add(new PhoneNumber("+380982292557", PhoneNumber.Telephone.Unknown), 3);
-        phoneNumbers.add(new PhoneNumber("+380677767677", "Иванов Иван Иванович", "г.Одесса, Старопортофранковская, 4б", PhoneNumber.Telephone.Home), 4);
-        phoneNumbers.add(new PhoneNumber("+380977789987", PhoneNumber.Telephone.Unknown), 5);
-        phoneNumbers.add(new PhoneNumber("+380933393393", "Петров Анатолий Фёдорович", "с.Виноградовка, ул.Ленина, 167", PhoneNumber.Telephone.Work), 6);
-        phoneNumbers.add(new PhoneNumber("+380959555955", "Иванов Пётр Петрович", "г.Киев, ул.Мира, 73г", PhoneNumber.Telephone.Mobile), 7);
-        phoneNumbers.add(new PhoneNumber("+380966669686", PhoneNumber.Telephone.Unknown), 8);
-        phoneNumbers.add(new PhoneNumber("+380995939339", "Волков Иван Степанович", "г.Одесса, ул.Пестеля, 2а", PhoneNumber.Telephone.Unknown), 9);
-        phoneNumbers.add(new PhoneNumber("+380995939333", PhoneNumber.Telephone.Unknown), 10);
+        phoneNumbers.add(new PhoneNumber("+380685397284", PhoneNumber.Telephone.Неизвестно), 1);
+        phoneNumbers.add(new PhoneNumber("+380996529404", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Мобильный), 2);
+        phoneNumbers.add(new PhoneNumber("+380982292557", PhoneNumber.Telephone.Мобильный), 3);
+        phoneNumbers.add(new PhoneNumber("+380677767677", "Иванов Иван Иванович", "г.Одесса, Старопортофранковская, 4б", PhoneNumber.Telephone.Домашний), 4);
+        phoneNumbers.add(new PhoneNumber("+380977789987", PhoneNumber.Telephone.Неизвестно), 5);
+        phoneNumbers.add(new PhoneNumber("+380933393393", "Петров Анатолий Фёдорович", "с.Виноградовка, ул.Ленина, 167", PhoneNumber.Telephone.Рабочий), 6);
+        phoneNumbers.add(new PhoneNumber("+380959555955", "Иванов Пётр Петрович", "г.Киев, ул.Мира, 73г", PhoneNumber.Telephone.Мобильный), 7);
+        phoneNumbers.add(new PhoneNumber("+380966669686", PhoneNumber.Telephone.Неизвестно), 8);
+        phoneNumbers.add(new PhoneNumber("+380995939339", "Волков Иван Степанович", "г.Одесса, ул.Пестеля, 2а", PhoneNumber.Telephone.Неизвестно), 9);
+        phoneNumbers.add(new PhoneNumber("+380995939333", PhoneNumber.Telephone.Неизвестно), 10);
 
         Menu();
     }
@@ -44,8 +44,9 @@ public class Main {
                 if (str.equals("1")||str.equals("2")||str.equals("3")||str.equals("4")||str.equals("5")||str.equals("6")) {
                     isCorrectly = true;
                 }
-                else
+                else {
                     System.out.println("Введите корректное значение: ");
+                }
             }
             menuNumber = Integer.parseInt(str);
             switch (menuNumber){
@@ -55,7 +56,7 @@ public class Main {
                 case 4: phoneNumbers.listOfAvailableNumbers(); break;
                 case 5: phoneNumbers.print(); break;
                 case 6: System.exit(0); break;
-                default: System.out.println("Введите номер из списка выше!!!"); menuNumber=0;
+                default: menuNumber=0;
             }
 
         }

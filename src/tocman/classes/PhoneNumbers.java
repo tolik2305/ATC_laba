@@ -1,8 +1,7 @@
 package tocman.classes;
 
-import tocman.Main;
+import tocman.ClassMain;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PhoneNumbers {
@@ -11,33 +10,23 @@ public class PhoneNumbers {
 
     private PhoneNumber[] list;
 
-    public PhoneNumber[] getList() {
-        return list;
-    }
-
     public PhoneNumbers(){
         PhoneNumber[] phoneNumber = new PhoneNumber[0];
     }
 
-    public PhoneNumbers(int length){
+    public PhoneNumbers(final int length){
         this.list = new PhoneNumber[length];
     }
 
-    public void add(PhoneNumber phoneNumber, int position) {
+    public void add(final PhoneNumber phoneNumber, final int position) {
         this.list[position-1] = phoneNumber;
     }
 
     String number;
-    String surname;
-
-    public boolean equals(PhoneNumber phoneNumber) {
-        System.out.println("Проверка на совпадение: " + number + " == " + phoneNumber.number);
-        return this.number ==  phoneNumber.number;
-    }
 
     public void print(){
-        for (int i=0;i<this.list.length;i++){
-            System.out.println("Номер: телефона: "+this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n'+ "Телефон: "+this.list[i].typeTelephone + '\n');
+        for (PhoneNumber phoneNumber : this.list) {
+            System.out.println("Номер: телефона: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
         }
         backToMenu();
     }
@@ -68,8 +57,9 @@ public class PhoneNumbers {
                     System.out.println("Номер: " + this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n');
                 }
             }
-            else if(i == this.list.length - 1&&!isFounded)
+            else if(i == this.list.length - 1&&!isFounded) {
                 System.out.println("Такой абонент не найден");
+            }
         }
 
         backToMenu();
@@ -88,28 +78,31 @@ public class PhoneNumbers {
                 System.out.println("Переименование успешно выполнено");
                 break;
             }
-            else if(i==this.list.length&&!isFounded)
+            else if(i==this.list.length&&!isFounded) {
                 System.out.println("Такой номер не найден в базе");
+            }
         }
         backToMenu();
     }
 
     public void listOfAvailableNumbers(){
-        for (int i = 0; i < this.list.length; i++){
-            if(list[i].fullName == null&&list[i].adress == null){
-                System.out.println("Номер: "+this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n');
+        for (PhoneNumber phoneNumber : this.list) {
+            if (phoneNumber.fullName == null && phoneNumber.adress == null) {
+                System.out.println("Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
             }
         }
         backToMenu();
     }
+
 
     public void backToMenu(){
         int result = -1;
         while (result<0||result>1) {
             System.out.println("Вернуться в меню? (1 - да, 0 - нет)");
             result = Integer.parseInt(scanner.next());
-            if (result == 1)
-                Main.Menu();
+            if (result == 1) {
+                ClassMain.Menu();
+            }
         }
     }
 
