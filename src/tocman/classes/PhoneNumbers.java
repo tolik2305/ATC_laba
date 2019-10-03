@@ -2,30 +2,33 @@ package tocman.classes;
 
 import tocman.ClassMain;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PhoneNumbers {
 
     Scanner scanner = new Scanner(System.in);
 
-    private PhoneNumber[] list;
+    ArrayList<PhoneNumber> list;
+
+    int counter;
 
     public PhoneNumbers(){
-        PhoneNumber[] phoneNumber = new PhoneNumber[0];
+        this.list = new ArrayList<>();
     }
 
-    public PhoneNumbers(final int length){
-        this.list = new PhoneNumber[length];
+    public PhoneNumbers(int length){
+        this.list = new ArrayList<>(length);
     }
 
-    public void add(final PhoneNumber phoneNumber, final int position) {
-        this.list[position-1] = phoneNumber;
+    public void add(PhoneNumber phoneNumber){
+        list.add(phoneNumber);
     }
 
     String number;
 
     public void print(){
-        for (PhoneNumber phoneNumber : this.list) {
+        for (PhoneNumber phoneNumber : list) {
             System.out.println("Номер: телефона: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
         }
         backToMenu();
@@ -34,53 +37,55 @@ public class PhoneNumbers {
     public void getDataByNumber(){
         System.out.println("Введите нужный номер телефона: ");
         number = scanner.next();
-        for(int i = 0;i < this.list.length; i++){
-            if(number.equals(this.list[i].number)){
-                System.out.println("Номер: "+this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n');
+        counter=0;
+        for (PhoneNumber phoneNumber: list) {
+            if(number.equals(phoneNumber.number)){
+                System.out.println("Номер: "+phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
                 break;
             }
-            else if(i == this.list.length-1){
-                System.out.println("Номер не найден!");
+            else if(counter==list.size()-1){
+                System.out.println("Номер не найден!!!");
             }
+            counter++;
         }
         backToMenu();
     }
 
+
     public void getDataByFullName(){
         System.out.println("Введите фамилию абонента: ");
-        boolean isFounded = false;
         String Surname = scanner.next();
-        for (int i=0;i<this.list.length;i++){
-            if(this.list[i].fullName!=null) {
-                if (this.list[i].fullName.contains(Surname)) {
-                    isFounded = true;
-                    System.out.println("Номер: " + this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n');
+        counter=0;
+        for (PhoneNumber phoneNumber: list){
+            if(phoneNumber.fullName!=null) {
+                if (phoneNumber.fullName.contains(Surname)) {
+                    System.out.println("Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
+                }
+                else if(counter==list.size()-1){
+                    System.out.println("Абонент с такой фамилией не найден!!!");
                 }
             }
-            else if(i == this.list.length - 1&&!isFounded) {
-                System.out.println("Такой абонент не найден");
-            }
+            counter++;
         }
-
         backToMenu();
     }
 
     public void reassignementOfOwnership(){
-        boolean isFounded = false;
+        counter=0;
         System.out.println("Введите номер, которому хотите поменять владельца: ");
         number = scanner.next();
         scanner.nextLine();
-        for(int i=0;i<this.list.length;i++){
-            if(number.equals(this.list[i].number)){
+        for (PhoneNumber phoneNumber: list) {
+            if(number.equals(phoneNumber.number)){
                 System.out.println("Введите Ф.И.О. нового владельца: ");
-                isFounded = true;
-                this.list[i].fullName = scanner.nextLine();
+                phoneNumber.fullName = scanner.nextLine();
                 System.out.println("Переименование успешно выполнено");
                 break;
             }
-            else if(i==this.list.length&&!isFounded) {
-                System.out.println("Такой номер не найден в базе");
+            else if (counter==list.size()-1){
+                System.out.println("Такой номер телефона не найден");
             }
+            counter++;
         }
         backToMenu();
     }

@@ -10,7 +10,7 @@ public class PhoneNumber {
         Рабочий,
         Мобильный,
         Домашний,
-        Неизвестно1
+        Неизвестно
     }
 
     Telephone typeTelephone;
