@@ -61,7 +61,6 @@ public class ClassMain {
                 case 6: System.exit(0); break;
                 default: menuNumber=0;
             }
-
         }
     }
 }
