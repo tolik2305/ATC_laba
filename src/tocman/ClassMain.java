@@ -60,7 +60,6 @@ public class ClassMain {
                 case 4: phoneNumbers.listOfAvailableNumbers(); break;
                 case 5: phoneNumbers.print(); break;
                 case 6: System.exit(0); break;
-                default: menuNumber=0;
             }
         }
     }
