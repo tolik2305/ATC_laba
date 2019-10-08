@@ -25,6 +25,9 @@ public class ClassMain {
         Menu();
     }
 
+    /**
+     * Основное меню
+     */
     public static void Menu(){
         int menuNumber = 0;
         Scanner scanner = new Scanner(System.in);
