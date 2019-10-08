@@ -11,7 +11,7 @@ public class PhoneNumbers {
 
     ArrayList<PhoneNumber> list;
 
-    int counter;
+    boolean isCorrectly = false;
 
     public PhoneNumbers(){
         this.list = new ArrayList<>();
@@ -27,6 +27,9 @@ public class PhoneNumbers {
 
     String number;
 
+    /**
+     * Функция вывода на экран
+     */
     public void print(){
         for (PhoneNumber phoneNumber : list) {
             System.out.println("Номер: телефона: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
@@ -34,62 +37,75 @@ public class PhoneNumbers {
         backToMenu();
     }
 
+    /**
+     * Функция поиска записи по номеру телефона
+     */
     public void getDataByNumber(){
         System.out.println("Введите нужный номер телефона: ");
         number = scanner.next();
-        counter=0;
-        for (PhoneNumber phoneNumber: list) {
-            if(number.equals(phoneNumber.number)){
-                System.out.println("Номер: "+phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
-                break;
+        while (!isCorrectly) {
+            if (number.matches("[+][0-9]{12}")) {
+                for (PhoneNumber phoneNumber : list) {
+                    if (number.equals(phoneNumber.number)) {
+                        System.out.println("Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
+                        backToMenu();
+                    }
+                }
             }
-            else if(counter==list.size()-1){
-                System.out.println("Номер не найден!!!");
-            }
-            counter++;
         }
+        System.out.println("Номер не найден!!!");
         backToMenu();
     }
 
-
+    /**
+     * Функция поиска записи по Фамилии абонента
+     */
     public void getDataByFullName(){
         System.out.println("Введите фамилию абонента: ");
         String Surname = scanner.next();
-        counter=0;
-        for (PhoneNumber phoneNumber: list){
-            if(phoneNumber.fullName!=null) {
-                if (phoneNumber.fullName.contains(Surname)) {
-                    System.out.println("Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
+        while (!isCorrectly) {
+            if (Surname.matches("[А-Я][а-я]{3,}")) {
+                for (PhoneNumber phoneNumber : list) {
+                    if (phoneNumber.fullName != null) {
+                        if (phoneNumber.fullName.contains(Surname)) {
+                            System.out.println("Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n');
+                            backToMenu();
+                        }
+                    }
                 }
-                else if(counter==list.size()-1){
-                    System.out.println("Абонент с такой фамилией не найден!!!");
-                }
+                System.out.println("Абонент с такой фамилией не найден!!!");
+                backToMenu();
             }
-            counter++;
         }
-        backToMenu();
     }
 
+    /**
+     * Функция переименования владельца для определённого номера телефона
+     */
     public void reassignementOfOwnership(){
-        counter=0;
+        isCorrectly=false;
         System.out.println("Введите номер, которому хотите поменять владельца: ");
         number = scanner.next();
         scanner.nextLine();
-        for (PhoneNumber phoneNumber: list) {
-            if(number.equals(phoneNumber.number)){
-                System.out.println("Введите Ф.И.О. нового владельца: ");
-                phoneNumber.fullName = scanner.nextLine();
-                System.out.println("Переименование успешно выполнено");
-                break;
-            }
-            else if (counter==list.size()-1){
+        while(!isCorrectly) {
+            if (number.matches("[+][0-9]{12}")) {
+                for (PhoneNumber phoneNumber : list) {
+                    if (number.equals(phoneNumber.number)) {
+                        System.out.println("Введите Ф.И.О. нового владельца: ");
+                        phoneNumber.fullName = scanner.nextLine();
+                        System.out.println("Переименование успешно выполнено");
+                        backToMenu();
+                    }
+                }
                 System.out.println("Такой номер телефона не найден");
+                backToMenu();
             }
-            counter++;
         }
-        backToMenu();
     }
 
+    /**
+     * Функция вывода списка свободных номеров
+     */
     public void listOfAvailableNumbers(){
         for (PhoneNumber phoneNumber : this.list) {
             if (phoneNumber.fullName == null && phoneNumber.adress == null) {
@@ -100,12 +116,15 @@ public class PhoneNumbers {
     }
 
 
+    /**
+     * Функция возвращения в меню
+     */
     public void backToMenu(){
-        int result = -1;
-        while (result<0||result>1) {
+        String result = "-1";
+        while (result.equals("-1")) {
             System.out.println("Вернуться в меню? (1 - да, 0 - нет)");
-            result = Integer.parseInt(scanner.next());
-            if (result == 1) {
+            result = scanner.next();
+            if (result.matches("[0-1]{1}") && result.equals("1")) {
                 ClassMain.Menu();
             }
         }
