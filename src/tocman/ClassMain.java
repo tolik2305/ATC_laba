@@ -25,6 +25,9 @@ public class ClassMain {
         Menu();
     }
 
+    /**
+     * Основное меню
+     */
     public static void Menu(){
         int menuNumber = 0;
         Scanner scanner = new Scanner(System.in);
@@ -41,8 +44,9 @@ public class ClassMain {
             String str="";
             while (!isCorrectly) {
                 str = scanner.next();
-                if (str.equals("1")||str.equals("2")||str.equals("3")||str.equals("4")||str.equals("5")||str.equals("6")) {
-                    isCorrectly = true;
+                scanner.nextLine();
+                if(str.matches("[1-6]{1}")){
+                    isCorrectly=true;
                 }
                 else {
                     System.out.println("Введите корректное значение: ");
@@ -56,7 +60,6 @@ public class ClassMain {
                 case 4: phoneNumbers.listOfAvailableNumbers(); break;
                 case 5: phoneNumbers.print(); break;
                 case 6: System.exit(0); break;
-                default: menuNumber=0;
             }
 
         }
