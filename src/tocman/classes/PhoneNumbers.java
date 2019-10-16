@@ -2,9 +2,6 @@ package tocman.classes;
 
 import tocman.ClassMain;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class PhoneNumbers {
 
     private PhoneNumber[] list;
