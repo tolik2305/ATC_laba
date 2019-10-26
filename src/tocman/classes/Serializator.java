@@ -64,3 +64,4 @@ public class Serializator implements Serializable{
         throw new InvalidObjectException("Object fail");
     }
 }
+

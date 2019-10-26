@@ -34,3 +34,4 @@ public class PhoneNumber implements Serializable {
         typeTelephone = telephone;
     }
 }
+
