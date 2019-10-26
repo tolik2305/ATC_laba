@@ -1,34 +1,29 @@
 package tocman.classes;
 
-import tocman.ClassMain;
+import java.util.ArrayList;
 
 public class PhoneNumbers {
 
-    private PhoneNumber[] list;
+    public ArrayList<PhoneNumber> list;
 
-    public PhoneNumbers() {
-        PhoneNumber[] phoneNumber = new PhoneNumber[0];
+    boolean isCorrectly = false;
+
+    public PhoneNumbers(){
+        this.list = new ArrayList<>();
     }
 
-    /**
-     * Создание списка на кол-во записей length
-     *
-     * @param length кол-во записей в списке
-     */
-    public PhoneNumbers(final int length) {
-        this.list = new PhoneNumber[length];
+    public PhoneNumbers(int length){
+        this.list = new ArrayList<>(length);
     }
 
-    /**
-     * @param phoneNumber сама запись
-     * @param position    позиция на которую добавляется запись
-     */
-    public void add(final PhoneNumber phoneNumber, final int position) {
-        this.list[position - 1] = phoneNumber;
+    public void add(PhoneNumber phoneNumber){
+        list.add(phoneNumber);
     }
 
+    String number;
+
     /**
-     * Функция вывода списка на экран
+     * Функция вывода на экран
      */
     @Override
     public String toString() {
@@ -40,17 +35,12 @@ public class PhoneNumbers {
     }
 
     /**
-     * @param isCoorectly результат проверки на корректность вводимых данных
-     */
-    boolean isCorrectly = false;
-
-    /**
      * Функция поиска записи по номеру телефона
      */
     public String getDataByNumber(String number) {
-        for (int i = 0; i < this.list.length; i++) {
-            if (number.equals(this.list[i].number)) {
-                return "Номер: " + this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n';
+        for (PhoneNumber phoneNumber: this.list) {
+            if (number.equals(phoneNumber.number)) {
+                return "Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n';
             }
         }
         return "Номер не найден!";
@@ -60,11 +50,12 @@ public class PhoneNumbers {
      * Функция поиска записи по Фамилии абонента
      */
     public String getDataByFullName(String surname) {
-        for (int i = 0; i < this.list.length; i++) {
-            if (this.list[i].fullName != null) {
-                if (this.list[i].fullName.contains(surname)) {
+        for (PhoneNumber phoneNumber: this.list)
+        {
+            if (phoneNumber.fullName != null) {
+                if (phoneNumber.fullName.contains(surname)) {
                     isCorrectly = true;
-                    return "Номер: " + this.list[i].number + "\nФ.И.О.: " + this.list[i].fullName + "\nАдрес: " + this.list[i].adress + '\n' + "Телефон: " + this.list[i].typeTelephone + '\n';
+                    return "Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n';
                 }
             }
         }
@@ -75,23 +66,22 @@ public class PhoneNumbers {
      * Функция переименования владельца для определённого номера телефона
      */
     public String reassignementOfOwnership(String number, String fullname) {
-        for (int i = 0; i < this.list.length; i++) {
-            if (number.equals(this.list[i].number)) {
-                this.list[i].fullName = fullname;
+        for (PhoneNumber phoneNumber:this.list) {
+            if (number.equals(phoneNumber.number)) {
+                phoneNumber.fullName = fullname;
                 return "Переименование успешно выполнено";
             }
         }
         return "Такой номер не найден в базе";
     }
 
-
     /**
      * Проверка есть ли номер в списке
      * @param number номер телефона
      */
     public boolean IsInList(String number) {
-        for (int i = 0; i < this.list.length; i++) {
-            if (number.equals(this.list[i].number)) {
+        for (PhoneNumber phoneNumber:this.list){
+            if (number.equals(phoneNumber.number)) {
                 return true;
             }
         }
@@ -105,7 +95,7 @@ public class PhoneNumbers {
         String numbers = "";
         for (PhoneNumber phoneNumber : this.list) {
             if (phoneNumber.fullName == null && phoneNumber.adress == null) {
-                numbers += "Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n';
+                numbers += "Номер: " + phoneNumber.number + "\nФ.И.О.: " + phoneNumber.fullName + "\nАдрес: " + phoneNumber.adress + '\n' + "Телефон: " + phoneNumber.typeTelephone + '\n'+ '\n';
             }
         }
         return numbers;
