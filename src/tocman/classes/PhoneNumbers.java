@@ -20,8 +20,6 @@ public class PhoneNumbers {
         list.add(phoneNumber);
     }
 
-    String number;
-
     /**
      * Функция вывода на экран
      */
