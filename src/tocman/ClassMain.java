@@ -2,28 +2,28 @@ package tocman;
 
 import tocman.classes.PhoneNumber;
 import tocman.classes.PhoneNumbers;
-import tocman.classes.Serializator;
+import tocman.classes.Serialization;
 
-import java.io.InvalidObjectException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ClassMain {
     public static PhoneNumbers phoneNumbers;
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException, ClassNotFoundException {
 
         phoneNumbers = new PhoneNumbers(10);
 
-//        phoneNumbers.add(new PhoneNumber("+380(68)539-72-84", PhoneNumber.Telephone.Неизвестно));
-//        phoneNumbers.add(new PhoneNumber("+380(99)652-94-04", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Мобильный));
-//        phoneNumbers.add(new PhoneNumber("+380(98)229-25-57", PhoneNumber.Telephone.Неизвестно));
-//        phoneNumbers.add(new PhoneNumber("+380(67)776-76-77", "Иванов Иван Иванович", "г.Одесса, Старопортофранковская, 4б", PhoneNumber.Telephone.Домашний));
-//        phoneNumbers.add(new PhoneNumber("+380(97)778-99-87", PhoneNumber.Telephone.Неизвестно));
-//        phoneNumbers.add(new PhoneNumber("+380(93)339-33-93", "Петров Анатолий Фёдорович", "с.Виноградовка, ул.Ленина, 167", PhoneNumber.Telephone.Рабочий));
-//        phoneNumbers.add(new PhoneNumber("+380(95)955-59-55", "Иванов Пётр Иванович", "г.Киев, ул.Мира, 73г", PhoneNumber.Telephone.Мобильный));
-//        phoneNumbers.add(new PhoneNumber("+380(96)666-96-86", PhoneNumber.Telephone.Неизвестно));
-//        phoneNumbers.add(new PhoneNumber("+380(99)593-93-33", PhoneNumber.Telephone.Неизвестно));
-//        phoneNumbers.add(new PhoneNumber("+380(99)593-93-39", "Волков Иван Степанович", "г.Одесса, ул.Пестеля, 2а", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(68)539-72-84", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(99)652-94-04", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Мобильный));
+        phoneNumbers.add(new PhoneNumber("+380(98)229-25-57", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(67)776-76-77", "Иванов Иван Иванович", "г.Одесса, Старопортофранковская, 4б", PhoneNumber.Telephone.Домашний));
+        phoneNumbers.add(new PhoneNumber("+380(97)778-99-87", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(93)339-33-93", "Петров Анатолий Фёдорович", "с.Виноградовка, ул.Ленина, 167", PhoneNumber.Telephone.Рабочий));
+        phoneNumbers.add(new PhoneNumber("+380(95)955-59-55", "Иванов Пётр Иванович", "г.Киев, ул.Мира, 73г", PhoneNumber.Telephone.Мобильный));
+        phoneNumbers.add(new PhoneNumber("+380(96)666-96-86", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(99)593-93-33", PhoneNumber.Telephone.Неизвестно));
+        phoneNumbers.add(new PhoneNumber("+380(99)593-93-39", "Волков Иван Степанович", "г.Одесса, ул.Пестеля, 2а", PhoneNumber.Telephone.Неизвестно));
 
         Menu();
     }
@@ -31,11 +31,11 @@ public class ClassMain {
     /**
      * Основное меню
      */
-    public static void Menu(){
+    public static void Menu() throws IOException, ClassNotFoundException {
         int menuNumber;
         Scanner scanner = new Scanner(System.in);
         PhoneNumber phoneNumber = new PhoneNumber();
-        Serializator serializator = new Serializator();
+        Serialization serialization = new Serialization("D://Phones.txt");
         while(true){
             System.out.println("Выберите нужный пункт: " +
                     "\n1) Сведения об абоненте по его телефонному номеру" +
@@ -45,6 +45,7 @@ public class ClassMain {
                     "\n5) Список всех номеров" +
                     "\n6) Записать данные в файл" +
                     "\n7) Считать данные из файла" +
+                    "\n8) Очистка спика" +
                     "\n0) Выход" +
                     "\nВведите цифру нужного пункта и нажмите Enter: ");
             boolean isCorrectly = false;
@@ -52,7 +53,7 @@ public class ClassMain {
             while (!isCorrectly) {
                 tempMenuNumber = scanner.next();
                 scanner.nextLine();
-                if(tempMenuNumber.matches("[1-7,0]{1}")){
+                if(tempMenuNumber.matches("[1-8,0]{1}")){
                     isCorrectly=true;
                 }
                 else {
@@ -118,16 +119,14 @@ public class ClassMain {
                     System.out.println(phoneNumbers.toString());
                 } break;
                 case 6: {
-                    serializator.serialization(phoneNumbers);
+                    System.out.println(serialization.Serialization(phoneNumbers));
                 } break;
                 case 7: {
-                    try {
-                        serializator.deserialization(phoneNumbers);
-                        System.out.println(phoneNumbers.toString());
-                    } catch (InvalidObjectException e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println(serialization.Deserialization(phoneNumbers));
                 } break;
+                case 8: {
+                    phoneNumbers.list.clear();
+                }break;
                 case 0: System.exit(0); break;
             }
         }
