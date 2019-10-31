@@ -1,9 +1,6 @@
 package tocman;
 
-import tocman.classes.BackUp;
-import tocman.classes.PhoneNumber;
-import tocman.classes.PhoneNumbers;
-import tocman.classes.Serialization;
+import tocman.classes.*;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,8 +11,6 @@ public class ClassMain {
     public static void main(final String[] args) throws IOException, ClassNotFoundException {
 
         phoneNumbers = new PhoneNumbers(10);
-        BackUp backUp = new BackUp("backup.bcp", phoneNumbers);
-        backUp.start();
         phoneNumbers.add(new PhoneNumber("+380(68)539-72-84", PhoneNumber.Telephone.Неизвестно));
         phoneNumbers.add(new PhoneNumber("+380(99)652-94-04", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Мобильный));
         phoneNumbers.add(new PhoneNumber("+380(98)229-25-57", PhoneNumber.Telephone.Неизвестно));
@@ -27,7 +22,14 @@ public class ClassMain {
         phoneNumbers.add(new PhoneNumber("+380(99)593-93-33", PhoneNumber.Telephone.Неизвестно));
         phoneNumbers.add(new PhoneNumber("+380(99)593-93-39", "Волков Иван Степанович", "г.Одесса, ул.Пестеля, 2а", PhoneNumber.Telephone.Неизвестно));
 
+        ClassExecutingTask executingTask = new ClassExecutingTask();
+        executingTask.start();
         Menu();
+    }
+
+    public static void BackUp(){
+        BackUp backUp = new BackUp("Phones.bcp", phoneNumbers);
+        backUp.start();
     }
 
     /**
@@ -36,7 +38,6 @@ public class ClassMain {
     public static void Menu() throws IOException, ClassNotFoundException {
         int menuNumber;
         Scanner scanner = new Scanner(System.in);
-        PhoneNumber phoneNumber = new PhoneNumber();
         Serialization serialization = new Serialization("D://Phones.txt");
         while(true){
             System.out.println("Выберите нужный пункт: " +

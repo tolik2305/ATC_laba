@@ -4,27 +4,20 @@ import java.io.*;
 
 public class BackUp extends Thread {
 
-    File file;
-    PhoneNumbers phoneNumbers;
+    private static File file;
+    private static PhoneNumbers phoneNumbers;
 
     public BackUp(String pathname, PhoneNumbers phoneNumbers){
         file = new File(pathname);
-        this.phoneNumbers = phoneNumbers;
+        BackUp.phoneNumbers = phoneNumbers;
     }
 
+    @Override
     public void run(){
-            while (true) {
-                try {
-                    Thread.sleep(10000);
-                    System.out.println("BackUP");
-                    BackUp(phoneNumbers);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        BackUp();
     }
 
-    public void BackUp(PhoneNumbers phoneNumbers) {
+    private static void BackUp() {
         ObjectOutputStream oos = null;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -36,8 +29,7 @@ public class BackUp extends Thread {
             e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if(oos!=null) {
                 try {
                     oos.close();
