@@ -1,5 +1,6 @@
 package tocman;
 
+import tocman.classes.BackUp;
 import tocman.classes.PhoneNumber;
 import tocman.classes.PhoneNumbers;
 import tocman.classes.Serialization;
@@ -13,7 +14,8 @@ public class ClassMain {
     public static void main(final String[] args) throws IOException, ClassNotFoundException {
 
         phoneNumbers = new PhoneNumbers(10);
-
+        BackUp backUp = new BackUp("backup.bcp", phoneNumbers);
+        backUp.start();
         phoneNumbers.add(new PhoneNumber("+380(68)539-72-84", PhoneNumber.Telephone.Неизвестно));
         phoneNumbers.add(new PhoneNumber("+380(99)652-94-04", "Петров Анатолий Васильевич", "г.Одесса, ул.Филатова, 37", PhoneNumber.Telephone.Мобильный));
         phoneNumbers.add(new PhoneNumber("+380(98)229-25-57", PhoneNumber.Telephone.Неизвестно));
@@ -45,7 +47,7 @@ public class ClassMain {
                     "\n5) Список всех номеров" +
                     "\n6) Записать данные в файл" +
                     "\n7) Считать данные из файла" +
-                    "\n8) Очистка спика" +
+                    "\n8) Очистка списка" +
                     "\n0) Выход" +
                     "\nВведите цифру нужного пункта и нажмите Enter: ");
             boolean isCorrectly = false;
